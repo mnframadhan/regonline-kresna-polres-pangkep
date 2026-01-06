@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getLapharsusList } from "../../api/lapharsus";
-import { useAuth } from "../../context/AuthContext";
 import LapharsusCreateModal from "./LapharsusCreateModal";
 
 export default function LapharsusList() {
