@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getKirsusList } from "../../api/kirsus";
-import { useAuth } from "../../context/AuthContext";
 import KirsusCreateModal from "./KirsusCreateModal";
 
 export default function KirsusList() {
