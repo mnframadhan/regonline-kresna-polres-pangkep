@@ -25,13 +25,13 @@ export default function InfosusList() {
     setData(res.data);
   };
 
-
   const loadLatest = async () => {
     const res = await getLatestNumber();
     !res.register_number ? 1 : setLatestNumber(res.register_number)
   }
 
   useEffect(() => {
+    loadLatest();
     loadData();
   }, [year]);
 
