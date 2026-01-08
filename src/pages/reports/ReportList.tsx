@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { getReportsList } from "../../api/reports";
+import { getReportsList, reportLatestRecord } from "../../api/reports";
 import ReportsCreateModal from "./ReportsCreateModal";
+import { Back } from "../../components/Back";
 
 export default function ReportsList() {
   const yearNow = new Date().getFullYear();
 
   const [year, setYear] = useState(yearNow);
   const [data, setData] = useState<any[]>([]);
+  const [latestNumber, setLatestNumber] = useState<number>(0)
   const [openCreate, setOpenCreate] = useState(false);
 
   const loadData = async () => {
@@ -14,22 +16,32 @@ export default function ReportsList() {
     setData(res.data);
   };
 
+  const loadLatest = async () => {
+    const res = await reportLatestRecord();
+    setLatestNumber(res.register_number)
+  }
+
+
   useEffect(() => {
     loadData();
+    loadLatest();
   }, [year]);
 
   return (
     <div className="p-6">
+
       <div className="flex justify-between mb-6">
-        <h1 className="text-xl font-bold">
-          Laporan Informasi
+
+        <h1 className="flex flex-col">
+          <span className="text-xl font-bold ">Laporan Informasi</span>
+          <Back />
         </h1>
 
         <div className="flex gap-2">
           <select
             value={year}
             onChange={(e) => setYear(Number(e.target.value))}
-            className="border rounded px-3 py-1"
+            className="border rounded px-4 py-1"
           >
             {[yearNow, yearNow - 1, yearNow - 2].map((y) => (
               <option key={y} value={y}>{y}</option>
@@ -80,6 +92,7 @@ export default function ReportsList() {
 
       <ReportsCreateModal
         open={openCreate}
+        latestNumber={latestNumber}
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}
       />

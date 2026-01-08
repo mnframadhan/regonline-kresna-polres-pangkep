@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getLapharsusList } from "../../api/lapharsus";
+import { getLapharsusList, getLatestNumber } from "../../api/lapharsus";
 import LapharsusCreateModal from "./LapharsusCreateModal";
+import { Back } from "../../components/Back";
 
 export default function LapharsusList() {
   const yearNow = new Date().getFullYear();
@@ -8,20 +9,30 @@ export default function LapharsusList() {
   const [year, setYear] = useState(yearNow);
   const [data, setData] = useState<any[]>([]);
   const [openCreate, setOpenCreate] = useState(false);
+  const [latestNumber, setLatestNumber] = useState(0);
 
   const loadData = async () => {
     const res = await getLapharsusList(year);
     setData(res.data);
   };
 
+  const loadLatest = async () => {
+    const res = await getLatestNumber();
+    !res.register_number ? 1 : setLatestNumber(res.register_number)
+  }
+
   useEffect(() => {
     loadData();
+    loadLatest();
   }, [year]);
 
   return (
     <div className="p-6">
       <div className="flex justify-between mb-6">
-        <h1 className="text-xl font-bold">Lapharsus</h1>
+        <h1 className="flex flex-col ">
+          <span className="text-xl font-bold">Lapharsus</span>
+          <Back />
+        </h1>
 
         <div className="flex gap-2">
           <select
@@ -89,6 +100,8 @@ export default function LapharsusList() {
 
       <LapharsusCreateModal
         open={openCreate}
+        latestNumber={latestNumber}
+        year={year}
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}
       />

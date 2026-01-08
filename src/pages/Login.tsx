@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { api } from "../api/client";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -9,7 +9,9 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
+  const setToken = useAuthStore((s) => s.setToken);
+  const fetchMe = useAuthStore((s) => s.fetchMe);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,8 +25,14 @@ export default function Login() {
         password
       });
 
-      login(res.data.token, res.data.user);
-      navigate("/");
+      // 1️⃣ simpan token
+      setToken(res.data.token);
+
+      // 2️⃣ validasi token + ambil user dari /auth/me
+      await fetchMe();
+
+      // 3️⃣ redirect
+      navigate("/", { replace: true });
     } catch (err: any) {
       setError(
         err.response?.data?.message ?? "Login gagal"
@@ -58,6 +66,7 @@ export default function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoFocus
           />
         </div>
 
@@ -73,6 +82,7 @@ export default function Login() {
         </div>
 
         <button
+          type="submit"
           disabled={loading}
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
         >

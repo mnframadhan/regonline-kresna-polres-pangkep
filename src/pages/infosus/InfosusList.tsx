@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getInfosusList } from "../../api/infosus";
+import { getInfosusList, getLatestNumber } from "../../api/infosus";
 import InfosusCreateModal from "./InfosusCreateModal";
 
 type Infosus = {
@@ -16,22 +16,20 @@ export default function InfosusList() {
 
   const [year, setYear] = useState(new Date().getFullYear());
   const [data, setData] = useState<Infosus[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [latestNumber, setLatestNumber] = useState<number>(0);
 
   const [openCreate, setOpenCreate] = useState(false);
 
   const loadData = async () => {
-    try {
-      setLoading(true);
-      const res = await getInfosusList(year);
-      setData(res.data);
-    } catch (err: any) {
-      setError(err.response?.data?.message ?? "Gagal memuat data");
-    } finally {
-      setLoading(false);
-    }
+    const res = await getInfosusList(year);
+    setData(res.data);
   };
+
+
+  const loadLatest = async () => {
+    const res = await getLatestNumber();
+    !res.register_number ? 1 : setLatestNumber(res.register_number)
+  }
 
   useEffect(() => {
     loadData();
@@ -64,60 +62,58 @@ export default function InfosusList() {
 
           <InfosusCreateModal
             open={openCreate}
+            latestNumber={latestNumber}
+            year={year}
             onClose={() => setOpenCreate(false)}
             onSuccess={loadData}
           />
         </div>
       </div>
 
-      {loading && <p>Memuat data...</p>}
-      {error && <p className="text-red-600">{error}</p>}
 
-      {!loading && !error && (
-        <div className="overflow-x-auto bg-white rounded shadow">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="p-3 text-left">No</th>
-                <th className="p-3 text-left">Nomor Infosus</th>
-                <th className="p-3 text-left">Tanggal</th>
-                <th className="p-3 text-left">Kepada</th>
-                <th className="p-3 text-left">Uraian</th>
-                <th className="p-3 text-left">Keterangan</th>
+      <div className="overflow-x-auto bg-white rounded shadow">
+        <table className="w-full text-sm">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="p-3 text-left">No</th>
+              <th className="p-3 text-left">Nomor Infosus</th>
+              <th className="p-3 text-left">Tanggal</th>
+              <th className="p-3 text-left">Kepada</th>
+              <th className="p-3 text-left">Uraian</th>
+              <th className="p-3 text-left">Keterangan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, idx) => (
+              <tr key={row.id} className="border-t">
+                <td className="p-3">{idx + 1}</td>
+                <td className="p-3 font-medium">
+                  {row.nomorInfosus}
+                </td>
+                <td className="p-3">
+                  {new Date(
+                    Number(row.createdAt) * 1000
+                  ).toLocaleDateString()}
+                </td>
+                <td className="p-3">{row.recipient}</td>
+                <td className="p-3">{row.summary}</td>
+                <td className="p-3">{row.note}</td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((row, idx) => (
-                <tr key={row.id} className="border-t">
-                  <td className="p-3">{idx + 1}</td>
-                  <td className="p-3 font-medium">
-                    {row.nomorInfosus}
-                  </td>
-                  <td className="p-3">
-                    {new Date(
-                      Number(row.createdAt) * 1000
-                    ).toLocaleDateString()}
-                  </td>
-                  <td className="p-3">{row.recipient}</td>
-                  <td className="p-3">{row.summary}</td>
-                  <td className="p-3">{row.note}</td>
-                </tr>
-              ))}
+            ))}
 
-              {data.length === 0 && (
-                <tr>
-                  <td
-                    colSpan={6}
-                    className="p-4 text-center text-gray-500"
-                  >
-                    Tidak ada data
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      )}
+            {data.length === 0 && (
+              <tr>
+                <td
+                  colSpan={6}
+                  className="p-4 text-center text-gray-500"
+                >
+                  Tidak ada data
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

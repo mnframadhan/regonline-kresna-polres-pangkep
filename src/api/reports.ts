@@ -11,3 +11,8 @@ export const createReport = async (payload: any) => {
   const res = await api.post("/reports", payload);
   return res.data;
 };
+
+export const reportLatestRecord = async () => {
+  const res = await api.get("/reports/latest-record")
+  return res.data
+}

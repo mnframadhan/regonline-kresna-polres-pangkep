@@ -6,3 +6,9 @@ export const getInfosusList = async (year?: number) => {
   });
   return res.data;
 };
+
+
+export const getLatestNumber = async () => {
+  const res = await api.get("/infosus/latest-record");
+  return res.data
+}

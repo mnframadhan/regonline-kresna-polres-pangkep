@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getKirsusList } from "../../api/kirsus";
+import { getKirsusList, getLatestNumber } from "../../api/kirsus";
 import KirsusCreateModal from "./KirsusCreateModal";
+import { Back } from "../../components/Back";
 
 export default function KirsusList() {
   const yearNow = new Date().getFullYear();
@@ -8,21 +9,30 @@ export default function KirsusList() {
   const [year, setYear] = useState(yearNow);
   const [data, setData] = useState<any[]>([]);
   const [openCreate, setOpenCreate] = useState(false);
+  const [latestNumber, setLatestNumber] = useState(0);
 
   const loadData = async () => {
     const res = await getKirsusList(year);
     setData(res.data);
   };
 
+  const loadLatest = async () => {
+    const res = await getLatestNumber();
+    !res.register_number ? 1 : setLatestNumber(res.register_number)
+  }
+
   useEffect(() => {
     loadData();
+    loadLatest();
   }, [year]);
 
   return (
     <div className="p-6">
       <div className="flex justify-between mb-6">
-        <h1 className="text-xl font-bold">Kirsus</h1>
-
+        <h1 className="flex flex-col ">
+          <span className="text-xl font-bold">Kirsus</span>
+          <Back />
+        </h1>
         <div className="flex gap-2">
           <select
             value={year}
@@ -89,6 +99,8 @@ export default function KirsusList() {
 
       <KirsusCreateModal
         open={openCreate}
+        latestNumber={latestNumber}
+        year={year}
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}
       />

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getKirkatList } from "../../api/kirkat";
 import KirkatCreateModal from "./KirkatCreateModal";
+import { Back } from "../../components/Back";
+import { getLatestNumber } from "../../api/kirkat";
 
 export default function KirkatList() {
   const yearNow = new Date().getFullYear();
@@ -8,20 +10,34 @@ export default function KirkatList() {
   const [year, setYear] = useState(yearNow);
   const [data, setData] = useState<any[]>([]);
   const [openCreate, setOpenCreate] = useState(false);
+  const [latestNumber, setLatestNumber] = useState<number>(0)
+
 
   const loadData = async () => {
     const res = await getKirkatList(year);
     setData(res.data);
   };
 
+  const loadLatest = async () => {
+    const res = await getLatestNumber();
+
+    !res.register_number ? 1 : setLatestNumber(res.register_number)
+
+  };
+
   useEffect(() => {
     loadData();
+    loadLatest();
+
   }, [year]);
 
   return (
     <div className="p-6">
       <div className="flex justify-between mb-6">
-        <h1 className="text-xl font-bold">Kirkat</h1>
+        <h1 className="flex flex-col">
+          <span className="text-xl font-bold">Kirkat</span>
+          <Back />
+        </h1>
 
         <div className="flex gap-2">
           <select
@@ -49,9 +65,9 @@ export default function KirkatList() {
             <tr>
               <th className="p-3">No</th>
               <th className="p-3">Nomor Kirkat</th>
-              <th className="p-3">Tanggal</th>
+              <th className="p-3">Tanggal Pembuatan</th>
               <th className="p-3">Kepada</th>
-              <th className="p-3">Uraian</th>
+              <th className="p-3">Uraian Singkat</th>
               <th className="p-3">Keterangan</th>
             </tr>
           </thead>
@@ -89,6 +105,8 @@ export default function KirkatList() {
 
       <KirkatCreateModal
         open={openCreate}
+        latestNumber={latestNumber}
+        year={year}
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}
       />

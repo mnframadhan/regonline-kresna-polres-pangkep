@@ -11,3 +11,8 @@ export const createKirkat = async (payload: any) => {
   const res = await api.post("/kirkat", payload);
   return res.data;
 };
+
+export const getLatestNumber = async () => {
+  const res = await api.get("/kirkat/latest-record");
+  return res.data
+}
