@@ -71,86 +71,88 @@ export default function LapharsusCreateModal({
 
         {!loading ? (
           <form onSubmit={handleSubmit} className="space-y-3">
-            <div className="block flex items-center gap-2">
-              R / LHK -
-              <input
-                value={latestNumber + 1}
-                className="w-12 bg-orange-200 text-center border rounded"
-                disabled
-              />
-              /
+            <div className="block flex flex-col">
+              <div>
+                R / LHK - &nbsp;
+                <input
+                  value={latestNumber + 1}
+                  className="w-12 bg-orange-200 text-center border rounded"
+                  disabled
+                />
+                &nbsp;/&nbsp;
+                <input
+                  name="month"
+                  type="number"
+                  min={1}
+                  max={12}
+                  onChange={handleChange}
+                  className="w-12 text-center border rounded"
+                  required
+                />
+                <p><strong>{ // @ts-ignore
+                  romanMap[value]}</strong></p>
+              </div>
+              <div>
 
-              <input
-                name="month"
-                type="number"
-                min={1}
-                max={12}
-                onChange={handleChange}
-                className="w-12 text-center border rounded"
-                required
-              />
-              <p><strong>{ // @ts-ignore
-                romanMap[value]}</strong></p>
+                /REN. &nbsp;
+                <select
+                  name="unitNumber"
+                  className="border rounded px-3 py-2 mt-1"
+                  required
+                >
+                  &nbsp;
+                  <option value="">- Pilih -</option>
+                  <optgroup label="Urbin">
+                    <option value="Urbin 1">Urbin 1</option>
+                    <option value="Urbin 2">Urbin 2</option>
+                    <option value="Urbin 3">Urbin 3</option>
+                  </optgroup>
+                  <optgroup label="Urmin">
+                    <option value="Urmin 1">Urmin 1</option>
+                    <option value="Urmin 2">Urmin 2</option>
+                    <option value="Urmin 3">Urmin 3</option>
+                  </optgroup>
+                  <optgroup label="Uryan">
+                    <option value="Uryan 1">Uryan 1</option>
+                    <option value="Uryan 2">Uryan 2</option>
+                    <option value="Uryan 3">Uryan 3</option>
+                  </optgroup>
+                  <optgroup label="UNIT 1">
+                    <option value="1.1">1.1</option>
+                    <option value="1.2">1.2</option>
+                    <option value="1.3">1.3</option>
+                    <option value="1.4">1.4</option>
+                    <option value="1.5">1.5</option>
+                    <option value="1.6">1.6</option>
+                  </optgroup>
+                  <optgroup label="UNIT 2">
+                    <option value="2.1">2.1</option>
+                    <option value="2.2">2.2</option>
+                    <option value="2.3">2.3</option>
+                    <option value="2.4">2.4</option>
+                    <option value="2.5">2.5</option>
+                    <option value="2.6">2.6</option>
+                  </optgroup>
+                  <optgroup label="UNIT 3">
+                    <option value="3.1">3.1</option>
+                    <option value="3.2">3.2</option>
+                    <option value="3.3">3.3</option>
+                    <option value="3.4">3.4</option>
+                    <option value="3.5">3.5</option>
+                    <option value="3.6">3.6</option>
+                  </optgroup>
+                  <optgroup label="UNIT 4">
+                    <option value="4.1">4.1</option>
+                    <option value="4.2">4.2</option>
+                    <option value="4.3">4.3</option>
+                    <option value="4.4">4.4</option>
+                    <option value="4.5">4.5</option>
+                    <option value="4.6">4.6</option>
+                  </optgroup>
+                </select>
+              </div>
               /
-              REN.
-              <select
-                name="unitNumber"
-                className="border rounded px-3 py-2 mt-1"
-                required
-              >
-                &nbsp;
-                <option value="">- Pilih -</option>
-                <optgroup label="Urbin">
-                  <option value="Urbin 1">Urbin 1</option>
-                  <option value="Urbin 2">Urbin 2</option>
-                  <option value="Urbin 3">Urbin 3</option>
-                </optgroup>
-                <optgroup label="Urmin">
-                  <option value="Urmin 1">Urmin 1</option>
-                  <option value="Urmin 2">Urmin 2</option>
-                  <option value="Urmin 3">Urmin 3</option>
-                </optgroup>
-                <optgroup label="Uryan">
-                  <option value="Uryan 1">Uryan 1</option>
-                  <option value="Uryan 2">Uryan 2</option>
-                  <option value="Uryan 3">Uryan 3</option>
-                </optgroup>
-                <optgroup label="UNIT 1">
-                  <option value="1.1">1.1</option>
-                  <option value="1.2">1.2</option>
-                  <option value="1.3">1.3</option>
-                  <option value="1.4">1.4</option>
-                  <option value="1.5">1.5</option>
-                  <option value="1.6">1.6</option>
-                </optgroup>
-                <optgroup label="UNIT 2">
-                  <option value="2.1">2.1</option>
-                  <option value="2.2">2.2</option>
-                  <option value="2.3">2.3</option>
-                  <option value="2.4">2.4</option>
-                  <option value="2.5">2.5</option>
-                  <option value="2.6">2.6</option>
-                </optgroup>
-                <optgroup label="UNIT 3">
-                  <option value="3.1">3.1</option>
-                  <option value="3.2">3.2</option>
-                  <option value="3.3">3.3</option>
-                  <option value="3.4">3.4</option>
-                  <option value="3.5">3.5</option>
-                  <option value="3.6">3.6</option>
-                </optgroup>
-                <optgroup label="UNIT 4">
-                  <option value="4.1">4.1</option>
-                  <option value="4.2">4.2</option>
-                  <option value="4.3">4.3</option>
-                  <option value="4.4">4.4</option>
-                  <option value="4.5">4.5</option>
-                  <option value="4.6">4.6</option>
-                </optgroup>
-              </select>
-              / &nbsp;
-              {year}
-              / &nbsp;
+              {year} &nbsp;
               SAT - IK
             </div>
             <input

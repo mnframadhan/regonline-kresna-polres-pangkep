@@ -55,7 +55,7 @@ export default function LapharsusList() {
             <thead className="bg-gray-100 text-left">
               <tr>
                 <th className="p-3 w-10">No</th>
-                <th className="p-3 w-80 text-wrap">Nomor Lapharsus</th>
+                <th className="p-3 w-80"><span className="text-nowrap">Nomor Lapharsus</span></th>
                 <th className="p-3 w-20">Tanggal</th>
                 <th className="p-3 w-32">Wilayah</th>
                 <th className="p-3">Uraian</th>
@@ -66,7 +66,7 @@ export default function LapharsusList() {
               {data.map((l, i) => (
                 <tr key={l.id} className="border-t">
                   <td className="p-3">{i + 1}</td>
-                  <td className="p-3 font-medium">
+                  <td className="p-3 font-medium text-nowrap">
                     {l.nomorLapharsus}
                   </td>
                   <td className="p-3">

@@ -85,7 +85,7 @@ export default function InfosusList() {
               {data.map((row, idx) => (
                 <tr key={row.id} className="border-t">
                   <td className="p-3">{idx + 1}</td>
-                  <td className="p-3 font-medium">
+                  <td className="p-3 font-medium text-nowrap">
                     {row.nomorInfosus}
                   </td>
                   <td className="p-3">

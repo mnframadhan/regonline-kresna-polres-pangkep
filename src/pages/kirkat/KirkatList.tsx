@@ -78,7 +78,7 @@ export default function KirkatList() {
               {data.map((k, i) => (
                 <tr key={k.id} className="border-t">
                   <td className="p-3">{i + 1}</td>
-                  <td className="p-3 font-medium">
+                  <td className="p-3 font-medium text-nowrap">
                     {k.nomorKirkat}
                   </td>
                   <td className="p-3">

@@ -65,7 +65,7 @@ export default function ReportsList() {
               {data.map((r, i) => (
                 <tr key={r.id} className="border-t">
                   <td className="p-3">{i + 1}</td>
-                  <td className="p-3">{r.registerNumber}</td>
+                  <td className="p-3 text-nowrap">{r.registerNumber}</td>
                   <td className="p-3">
                     {new Date(
                       Number(r.receivedAt) * 1000
