@@ -18,7 +18,7 @@ type Infosus = {
   id: string;
   registerNumber: number;
   nomorInfosus: string;
-  createdAt: string;
+  received_at: string;
   recipient: string;
   summary: string;
   note: string;
@@ -101,12 +101,12 @@ export default function InfosusList() {
                       {row.nomorInfosus}
                     </TableCell>
                     <TableCell className="p-3">
-                      {new Date(Number(row.createdAt) * 1000).toLocaleDateString("id-ID", {
+                      {new Date(Number(row.received_at) * 1000).toLocaleDateString("id-ID", {
                         dateStyle: "long",
                       })}
                     </TableCell>
                     <TableCell className="p-3">{row.recipient}</TableCell>
-                    <TableCell className="p-3">{row.summary}</TableCell>
+                    <TableCell className="p-3 min-w-[400px]">{row.summary}</TableCell>
                     <TableCell className="p-3">{row.note}</TableCell>
                   </TableRow>
                 ))}

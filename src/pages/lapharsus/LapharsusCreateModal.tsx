@@ -28,6 +28,7 @@ export default function LapharsusCreateModal({
       const form = e.target as HTMLFormElement;
 
       await createLapharsus({
+        received_at: Math.floor(new Date(form.received_at.value).getTime() / 1000).toString(),
         summary: form.summary.value,
         region: form.region.value,
         note: form.note.value,
@@ -100,6 +101,11 @@ export default function LapharsusCreateModal({
             /
             {year} &nbsp;
             SAT - IK
+            <input
+              type="date"
+              name="received_at"
+              required
+              className="w-full border rounded px-3 py-2 mt-1" />
             <input
               name="region"
               placeholder="Wilayah"

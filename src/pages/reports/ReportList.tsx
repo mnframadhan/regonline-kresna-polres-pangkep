@@ -82,12 +82,19 @@ export default function ReportsList() {
                 ))}
               </TableBody>
             </Table>
+
+            {data.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={6} className="p-4 text-center text-gray-500">
+                  Tidak ada data
+                </TableCell>
+              </TableRow>
+            )}
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         ) : (
           <Loading />
-        )
-        }
+        )}
 
         <ReportsCreateModal
           open={openCreate}

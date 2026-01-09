@@ -49,7 +49,7 @@ export default function Login() {
 
       <div className="my-12 flex gap-4 items-center">
         <img className="w-32" src="/logo-kresna.png" />
-        <div className="h-32 w-1 bg-slate-300" />
+        <div className="h-32 w-[1px] bg-slate-500" />
         <img className="w-42" src="/logo-sat-intelkam.png" />
       </div>
       <form

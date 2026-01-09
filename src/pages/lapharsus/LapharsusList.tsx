@@ -75,7 +75,7 @@ export default function LapharsusList() {
                     </TableCell>
                     <TableCell className="p-3">
                       {new Date(
-                        Number(l.createdAt) * 1000
+                        Number(l.received_at) * 1000
                       ).toLocaleDateString("id-ID", { dateStyle: "long" })}
                     </TableCell>
                     <TableCell className="p-3">{l.region}</TableCell>

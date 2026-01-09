@@ -29,6 +29,7 @@ export default function KirkatCreateModal({
       const form = e.target as HTMLFormElement;
 
       await createKirkat({
+        received_at: Math.floor(new Date(form.received_at.value).getTime() / 1000).toString(),
         recipient: form.recipient.value,
         summary: form.summary.value,
         month: form.month.value,
@@ -97,6 +98,12 @@ export default function KirkatCreateModal({
               / &nbsp;
               {year}
             </label>
+
+            <input
+              type="date"
+              name="received_at"
+              required
+              className="w-full border rounded px-3 py-2 mt-1" />
 
             <input
               name="recipient"

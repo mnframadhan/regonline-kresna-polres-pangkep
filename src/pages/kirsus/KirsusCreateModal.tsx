@@ -30,6 +30,7 @@ export default function KirsusCreateModal({
   const [opsType, setOpsType] = useState("");
   const [note, setNote] = useState("");
   const [month, setMonth] = useState<number>(0);
+  const [receivedAt, setReceivedAt] = useState("");
 
   if (!open) return null;
 
@@ -46,8 +47,10 @@ export default function KirsusCreateModal({
     setLoading(true)
     try {
       e.preventDefault();
+      const receivedAtUnix = Math.floor(new Date(receivedAt).getTime() / 1000).toString();
 
       await createKirsus({
+        received_at: receivedAtUnix,
         month,
         recipient,
         cc,
@@ -99,6 +102,14 @@ export default function KirsusCreateModal({
             <div>
 
             </div>
+
+            <input
+              type="date"
+              value={receivedAt}
+              onChange={(e) => setReceivedAt(e.target.value)}
+              required
+              className="w-full border rounded px-3 py-2 mt-1"
+            />
 
             <input
               type="text"

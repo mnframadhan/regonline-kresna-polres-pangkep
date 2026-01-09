@@ -66,7 +66,7 @@ export default function KirsusList() {
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}
       />
-      <div className="bg-white rounded shadow overflow-x-auto">
+      <div className="rounded shadow overflow-x-auto">
         {!loading ? (
 
           <ScrollArea className="bg-white w-full rounded-md border mt-2">
@@ -92,7 +92,7 @@ export default function KirsusList() {
                       {k.nomorKirsus}
                     </TableCell>
                     <TableCell className="p-3">
-                      {new Date(Number(k.createdAt) * 1000).toLocaleDateString("id-ID", {
+                      {new Date(Number(k.received_at) * 1000).toLocaleDateString("id-ID", {
                         dateStyle: "long",
                       })}
                     </TableCell>

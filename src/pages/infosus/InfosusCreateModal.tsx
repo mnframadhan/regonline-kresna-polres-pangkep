@@ -28,6 +28,8 @@ export default function InfosusCreateModal({
       const form = e.target as HTMLFormElement;
 
       const payload = {
+
+        received_at: Math.floor(new Date(form.received_at.value).getTime() / 1000).toString(),
         recipient: form.recipient.value,
         summary: form.summary.value,
         note: form.note.value,
@@ -101,6 +103,12 @@ export default function InfosusCreateModal({
               / &nbsp;
               {year}
             </label>
+
+            <input
+              type="date"
+              name="received_at"
+              required
+              className="w-full border rounded px-3 py-2 mt-1" />
 
             <input
               name="recipient"

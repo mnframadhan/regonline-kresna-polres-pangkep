@@ -79,7 +79,7 @@ export default function KirkatList() {
                 <TableRow>
                   <TableHead className="px-4 py-2">No</TableHead>
                   <TableHead className="px-4 py-2">Nomor Kirkat</TableHead>
-                  <TableHead className="px-4 py-2">Tanggal Pembuatan</TableHead>
+                  <TableHead className="px-4 py-2">Tanggal</TableHead>
                   <TableHead className="px-4 py-2">Kepada</TableHead>
                   <TableHead className="px-4 py-2">Uraian Singkat</TableHead>
                   <TableHead className="px-4 py-2">Keterangan</TableHead>
@@ -94,7 +94,7 @@ export default function KirkatList() {
                       {k.nomorKirkat}
                     </TableCell>
                     <TableCell className="p-3">
-                      {new Date(Number(k.createdAt) * 1000).toLocaleDateString("id-ID", {
+                      {new Date(Number(k.received_at) * 1000).toLocaleDateString("id-ID", {
                         dateStyle: "long",
                       })}
                     </TableCell>
