@@ -17,12 +17,12 @@ export function YearSelectorWithAdd({ year, onYearChange, onAdd }: Props) {
         <Back />
         <button
           onClick={onAdd}
-          className="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded hover:bg-[#ce7d31]"
+          className="cursor-pointer bg-green-600 text-white px-4 py-2 rounded hover:bg-green-900"
         >
           + TAMBAH </button>
       </div>
       <select
-        className="border rounded px-4 py-2"
+        className="bg-white border rounded px-4 py-2"
         value={year}
         onChange={(e) => onYearChange(Number(e.target.value))}
       >

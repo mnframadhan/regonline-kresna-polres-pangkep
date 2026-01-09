@@ -4,6 +4,8 @@ import LapharsusCreateModal from "./LapharsusCreateModal";
 import { PageHeader } from "../../components/PageHeader";
 import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
 import Loading from "../../components/Loading";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export default function LapharsusList() {
   const yearNow = new Date().getFullYear();
@@ -36,7 +38,7 @@ export default function LapharsusList() {
   }, [year]);
 
   return (
-    <div className="p-6 bg-yellow-200 min-h-screen">
+    <div className="uppercase p-6 bg-yellow-200 min-h-screen">
 
       <PageHeader title="REGISTER LAPHARSUS" />
 
@@ -48,50 +50,55 @@ export default function LapharsusList() {
           onAdd={() => setOpenCreate(true)}
         />
       </div>
-      <div className="bg-white rounded shadow overflow-x-auto">
+      <div className="rounded shadow overflow-x-auto">
 
         {!loading ? (
-          <table className="w-full text-sm">
-            <thead className="bg-gray-100 text-left">
-              <tr>
-                <th className="p-3 w-10">No</th>
-                <th className="p-3 w-80"><span className="text-nowrap">Nomor Lapharsus</span></th>
-                <th className="p-3 w-32">Tanggal</th>
-                <th className="p-3 w-32">Wilayah</th>
-                <th className="p-3">Uraian</th>
-                <th className="p-3">Keterangan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((l, i) => (
-                <tr key={l.id} className="border-t">
-                  <td className="p-3">{i + 1}</td>
-                  <td className="p-3 font-medium text-nowrap">
-                    {l.nomorLapharsus}
-                  </td>
-                  <td className="p-3">
-                    {new Date(
-                      Number(l.createdAt) * 1000
-                    ).toLocaleDateString("id-ID", { dateStyle: "long" })}
-                  </td>
-                  <td className="p-3">{l.region}</td>
-                  <td className="p-3">{l.summary}</td>
-                  <td className="p-3">{l.note}</td>
-                </tr>
-              ))}
 
-              {data.length === 0 && (
-                <tr>
-                  <td
-                    colSpan={6}
-                    className="p-4 text-center text-gray-500"
-                  >
-                    Tidak ada data
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+          <ScrollArea className="bg-white w-full rounded-md border mt-2">
+            <Table className="w-full text-sm">
+              <TableHeader className="bg-gray-100 text-left">
+                <TableRow>
+                  <TableHead className="px-4 py-2">No</TableHead>
+                  <TableHead className="px-4 py-2"><span className="text-nowrap">Nomor Lapharsus</span></TableHead>
+                  <TableHead className="px-4 py-2">Tanggal</TableHead>
+                  <TableHead className="px-4 py-2">Wilayah</TableHead>
+                  <TableHead className="px-4 py-2">Uraian Singkat</TableHead>
+                  <TableHead className="px-4 py-2">Keterangan</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.map((l, i) => (
+                  <TableRow key={l.id} className="border-t">
+                    <TableCell className="p-3">{i + 1}</TableCell>
+                    <TableCell className="p-3 font-medium text-nowrap">
+                      {l.nomorLapharsus}
+                    </TableCell>
+                    <TableCell className="p-3">
+                      {new Date(
+                        Number(l.createdAt) * 1000
+                      ).toLocaleDateString("id-ID", { dateStyle: "long" })}
+                    </TableCell>
+                    <TableCell className="p-3">{l.region}</TableCell>
+                    <TableCell className="p-3 min-w-[400px]">{l.summary}</TableCell>
+                    <TableCell className="p-3">{l.note}</TableCell>
+                  </TableRow>
+                ))}
+
+                {data.length === 0 && (
+                  <TableRow>
+                    <TableCell
+                      colSpan={6}
+                      className="p-4 text-center text-gray-500"
+                    >
+                      Tidak ada data
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         ) : (
           <Loading />
         )}

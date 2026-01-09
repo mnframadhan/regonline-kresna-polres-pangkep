@@ -4,6 +4,8 @@ import ReportsCreateModal from "./ReportsCreateModal";
 import { PageHeader } from "../../components/PageHeader";
 import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
 import Loading from "../../components/Loading";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export default function ReportsList() {
   const yearNow = new Date().getFullYear();
@@ -37,7 +39,7 @@ export default function ReportsList() {
   }, [year]);
 
   return (
-    <div className="p-6 bg-yellow-200 min-h-screen">
+    <div className="uppercase p-6 bg-yellow-200 min-h-screen">
       <PageHeader title="REGISTER LAPORAN INFORMASI" />
       <div className="flex justify-between items-center mb-6">
         <YearSelectorWithAdd
@@ -47,49 +49,53 @@ export default function ReportsList() {
         />
       </div>
 
-      <div className="bg-white rounded shadow overflow-x-auto">
+      <div className="rounded shadow overflow-x-auto">
         {!loading ? (
-          <table className="w-full text-sm">
-            <thead className="bg-gray-100 text-left">
-              <tr>
-                <th className="p-3 w-10">No</th>
-                <th className="p-3 w-32">No. Register</th>
-                <th className="p-3 w-32">Tanggal Terima</th>
-                <th className="p-3 w-32">Pelapor</th>
-                <th className="p-3">Perihal</th>
-                <th className="w-40 p-3">Kepada</th>
-                <th className="p-3">Keterangan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((r, i) => (
-                <tr key={r.id} className="border-t">
-                  <td className="p-3">{i + 1}</td>
-                  <td className="p-3 text-nowrap">{r.registerNumber}</td>
-                  <td className="p-3">
-                    {new Date(
-                      Number(r.receivedAt) * 1000
-                    ).toLocaleDateString("id-ID", { dateStyle: "long" })}
-                  </td>
-                  <td className="p-3">{r.reporter}</td>
-                  <td className="p-3">{r.subject}</td>
-                  <td className="p-3">{r.recipient}</td>
-                  <td className="p-3">{r.note}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <ScrollArea className="bg-white w-full rounded-md border mt-2">
+            <Table className="w-full text-sm">
+              <TableHeader className="bg-gray-100 text-left">
+                <TableRow>
+                  <TableHead className="px-4 py-2">No</TableHead>
+                  <TableHead className="px-4 py-2">No. Register</TableHead>
+                  <TableHead className="px-4 py-2">Tanggal Terima</TableHead>
+                  <TableHead className="px-4 py-2">Pelapor</TableHead>
+                  <TableHead className="px-4 py-2">Perihal</TableHead>
+                  <TableHead className="px-4 py-2">Kepada</TableHead>
+                  <TableHead className="px-3 py-2">Keterangan</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.map((r, i) => (
+                  <TableRow key={r.id} className="border-t">
+                    <TableCell className="p-3">{i + 1}</TableCell>
+                    <TableCell className="p-3 text-nowrap">{r.registerNumber}</TableCell>
+                    <TableCell className="p-3">
+                      {new Date(
+                        Number(r.receivedAt) * 1000
+                      ).toLocaleDateString("id-ID", { dateStyle: "long" })}
+                    </TableCell>
+                    <TableCell className="p-3">{r.reporter}</TableCell>
+                    <TableCell className="min-w-[400px] border-r">{r.subject}</TableCell>
+                    <TableCell className="p-3">{r.recipient}</TableCell>
+                    <TableCell className="">{r.note}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         ) : (
           <Loading />
-        )}
-      </div>
+        )
+        }
 
-      <ReportsCreateModal
-        open={openCreate}
-        latestNumber={latestNumber}
-        onClose={() => setOpenCreate(false)}
-        onSuccess={loadData}
-      />
-    </div >
+        <ReportsCreateModal
+          open={openCreate}
+          latestNumber={latestNumber}
+          onClose={() => setOpenCreate(false)}
+          onSuccess={loadData}
+        />
+      </div >
+    </div>
   );
 }
