@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getInfosusList, getLatestNumber } from "../../api/infosus";
 import InfosusCreateModal from "./InfosusCreateModal";
-import { Back } from "../../components/Back";
 import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
 import Loading from "../../components/Loading";
 import { PageHeader } from "../../components/PageHeader";

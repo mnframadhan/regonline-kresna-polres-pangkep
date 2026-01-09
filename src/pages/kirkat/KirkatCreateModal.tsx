@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { createKirkat } from "../../api/kirkat";
-import { Back } from "../../components/Back";
 import Loading from "../../components/Loading";
 import { FormActions } from "../../components/FormActionModal";
 

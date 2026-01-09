@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getLapharsusList, getLatestNumber } from "../../api/lapharsus";
 import LapharsusCreateModal from "./LapharsusCreateModal";
-import { Back } from "../../components/Back";
 import { PageHeader } from "../../components/PageHeader";
 import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
 import Loading from "../../components/Loading";
