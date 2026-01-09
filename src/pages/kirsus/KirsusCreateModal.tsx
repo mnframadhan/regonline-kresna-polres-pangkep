@@ -24,7 +24,6 @@ export default function KirsusCreateModal({
   onSuccess
 }: Props) {
   const [loading, setLoading] = useState<boolean>(false)
-  const [unitNumber, setUnitNumber] = useState("");
   const [recipient, setRecipient] = useState("");
   const [cc, setCc] = useState("");
   const [summary, setSummary] = useState("");
@@ -49,7 +48,6 @@ export default function KirsusCreateModal({
       e.preventDefault();
 
       await createKirsus({
-        unitNumber,
         month,
         recipient,
         cc,
