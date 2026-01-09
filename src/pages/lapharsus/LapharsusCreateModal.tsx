@@ -116,7 +116,7 @@ export default function LapharsusCreateModal({
 
             <input
               name="note"
-              placeholder="Keterangan (opsional)"
+              placeholder="Keterangan"
               className="w-full border rounded px-3 py-2"
             />
             <FormActions onCancel={() => onClose()} />

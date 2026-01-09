@@ -56,7 +56,7 @@ export default function LapharsusList() {
               <tr>
                 <th className="p-3 w-10">No</th>
                 <th className="p-3 w-80"><span className="text-nowrap">Nomor Lapharsus</span></th>
-                <th className="p-3 w-20">Tanggal</th>
+                <th className="p-3 w-32">Tanggal</th>
                 <th className="p-3 w-32">Wilayah</th>
                 <th className="p-3">Uraian</th>
                 <th className="p-3">Keterangan</th>
@@ -72,7 +72,7 @@ export default function LapharsusList() {
                   <td className="p-3">
                     {new Date(
                       Number(l.createdAt) * 1000
-                    ).toLocaleDateString()}
+                    ).toLocaleDateString("id-ID", { dateStyle: "long" })}
                   </td>
                   <td className="p-3">{l.region}</td>
                   <td className="p-3">{l.summary}</td>

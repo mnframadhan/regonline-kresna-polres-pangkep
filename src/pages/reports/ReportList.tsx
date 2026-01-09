@@ -54,8 +54,8 @@ export default function ReportsList() {
               <tr>
                 <th className="p-3 w-10">No</th>
                 <th className="p-3 w-32">No. Register</th>
-                <th className="p-3 w-32 p-3">Tanggal Terima</th>
-                <th className="p-3 w-32 p-3">Pelapor</th>
+                <th className="p-3 w-32">Tanggal Terima</th>
+                <th className="p-3 w-32">Pelapor</th>
                 <th className="p-3">Perihal</th>
                 <th className="w-40 p-3">Kepada</th>
                 <th className="p-3">Keterangan</th>
@@ -69,7 +69,7 @@ export default function ReportsList() {
                   <td className="p-3">
                     {new Date(
                       Number(r.receivedAt) * 1000
-                    ).toLocaleDateString()}
+                    ).toLocaleDateString("id-ID", { dateStyle: "long" })}
                   </td>
                   <td className="p-3">{r.reporter}</td>
                   <td className="p-3">{r.subject}</td>

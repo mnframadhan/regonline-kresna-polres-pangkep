@@ -63,8 +63,8 @@ export default function KirsusList() {
             <thead className="bg-gray-100 text-left">
               <tr>
                 <th className="p-3 w-10">No</th>
-                <th className="p-3 w-72">Nomor Kirsus</th>
-                <th className="p-3 w-20">Tanggal</th>
+                <th className="p-3 w-36">Nomor Kirsus</th>
+                <th className="p-3 w-36">Tanggal</th>
                 <th className="p-3 w-20">Kepada</th>
                 <th className="p-3">Tembusan</th>
                 <th className="p-3">Perihal</th>
@@ -82,7 +82,7 @@ export default function KirsusList() {
                   <td className="p-3">
                     {new Date(
                       Number(k.createdAt) * 1000
-                    ).toLocaleDateString()}
+                    ).toLocaleDateString("id-ID", { dateStyle: "long" })}
                   </td>
                   <td className="p-3">{k.recipient}</td>
                   <td className="p-3">{k.cc}</td>

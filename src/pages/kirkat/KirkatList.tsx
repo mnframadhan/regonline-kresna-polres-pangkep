@@ -84,7 +84,7 @@ export default function KirkatList() {
                   <td className="p-3">
                     {new Date(
                       Number(k.createdAt) * 1000
-                    ).toLocaleDateString()}
+                    ).toLocaleDateString("id-ID", { dateStyle: "long" })}
                   </td>
                   <td className="p-3">{k.recipient}</td>
                   <td className="p-3">{k.summary}</td>

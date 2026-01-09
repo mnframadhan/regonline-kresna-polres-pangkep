@@ -91,7 +91,7 @@ export default function InfosusList() {
                   <td className="p-3">
                     {new Date(
                       Number(row.createdAt) * 1000
-                    ).toLocaleDateString()}
+                    ).toLocaleDateString("id-ID", { dateStyle: "long" })}
                   </td>
                   <td className="p-3">{row.recipient}</td>
                   <td className="p-3">{row.summary}</td>
