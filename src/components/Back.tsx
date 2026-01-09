@@ -5,7 +5,7 @@ export const Back = () => {
   return (
     <button
       onClick={() => navigate(-1)}
-      className="bg-gray-200 px-2 font-bold rounded cursor-pointer border-2 hover:bg-black hover:text-white mt-1"
-    >Kembali</button>
+      className="bg-orange-300 px-4 py-2 font-bold rounded cursor-pointer border-black hover:bg-black hover:text-white"
+    >&larr; KEMBALI</button>
   )
 }

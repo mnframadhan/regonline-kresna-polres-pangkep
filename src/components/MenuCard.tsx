@@ -12,7 +12,7 @@ export default function MenuCard({
   return (
     <div
       onClick={() => navigate(path)}
-      className="cursor-pointer rounded-xl bg-white p-6 shadow hover:shadow-lg transition"
+      className="cursor-pointer rounded-xl border-2 border-black bg-blue-600 p-6 text-white uppercase shadow hover:shadow-xl hover:bg-black hover:text-white transition"
     >
       <h2 className="text-lg font-semibold">{title}</h2>
     </div>

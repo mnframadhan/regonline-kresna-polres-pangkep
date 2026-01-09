@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { getLapharsusList, getLatestNumber } from "../../api/lapharsus";
 import LapharsusCreateModal from "./LapharsusCreateModal";
 import { Back } from "../../components/Back";
+import { PageHeader } from "../../components/PageHeader";
+import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
+import Loading from "../../components/Loading";
 
 export default function LapharsusList() {
   const yearNow = new Date().getFullYear();
@@ -10,10 +13,17 @@ export default function LapharsusList() {
   const [data, setData] = useState<any[]>([]);
   const [openCreate, setOpenCreate] = useState(false);
   const [latestNumber, setLatestNumber] = useState(0);
+  const [loading, setLoading] = useState<boolean>(true)
 
   const loadData = async () => {
-    const res = await getLapharsusList(year);
-    setData(res.data);
+    try {
+      const res = await getLapharsusList(year);
+      setData(res.data);
+    } catch (err) {
+      alert("Terjadi kesalahan")
+    } finally {
+      setLoading(false)
+    }
   };
 
   const loadLatest = async () => {
@@ -27,75 +37,65 @@ export default function LapharsusList() {
   }, [year]);
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between mb-6">
-        <h1 className="flex flex-col ">
-          <span className="text-xl font-bold">Lapharsus</span>
-          <Back />
-        </h1>
+    <div className="p-6 bg-yellow-200 min-h-screen">
 
-        <div className="flex gap-2">
-          <select
-            value={year}
-            onChange={(e) => setYear(Number(e.target.value))}
-            className="border rounded px-3 py-1"
-          >
-            {[yearNow, yearNow - 1, yearNow - 2].map((y) => (
-              <option key={y} value={y}>{y}</option>
-            ))}
-          </select>
+      <PageHeader title="REGISTER LAPHARSUS" />
 
-          <button
-            onClick={() => setOpenCreate(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            + Tambah
-          </button>
-        </div>
+      <div className="flex justify-between items-center mb-6">
+
+        <YearSelectorWithAdd
+          year={year}
+          onYearChange={(y) => setYear(y)}
+          onAdd={() => setOpenCreate(true)}
+        />
       </div>
-
       <div className="bg-white rounded shadow overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="p-3">No</th>
-              <th className="p-3">Nomor Lapharsus</th>
-              <th className="p-3">Tanggal</th>
-              <th className="p-3">Wilayah</th>
-              <th className="p-3">Uraian</th>
-              <th className="p-3">Keterangan</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((l, i) => (
-              <tr key={l.id} className="border-t">
-                <td className="p-3">{i + 1}</td>
-                <td className="p-3 font-medium">
-                  {l.nomorLapharsus}
-                </td>
-                <td className="p-3">
-                  {new Date(
-                    Number(l.createdAt) * 1000
-                  ).toLocaleDateString()}
-                </td>
-                <td className="p-3">{l.region}</td>
-                <td className="p-3">{l.summary}</td>
-                <td className="p-3">{l.note}</td>
-              </tr>
-            ))}
 
-            {data.length === 0 && (
+        {!loading ? (
+          <table className="w-full text-sm">
+            <thead className="bg-gray-100 text-left">
               <tr>
-                <td
-                  colSpan={6}
-                  className="p-4 text-center text-gray-500"
-                >
-                  Tidak ada data
-                </td>
+                <th className="p-3 w-10">No</th>
+                <th className="p-3 w-80 text-wrap">Nomor Lapharsus</th>
+                <th className="p-3 w-20">Tanggal</th>
+                <th className="p-3 w-32">Wilayah</th>
+                <th className="p-3">Uraian</th>
+                <th className="p-3">Keterangan</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.map((l, i) => (
+                <tr key={l.id} className="border-t">
+                  <td className="p-3">{i + 1}</td>
+                  <td className="p-3 font-medium">
+                    {l.nomorLapharsus}
+                  </td>
+                  <td className="p-3">
+                    {new Date(
+                      Number(l.createdAt) * 1000
+                    ).toLocaleDateString()}
+                  </td>
+                  <td className="p-3">{l.region}</td>
+                  <td className="p-3">{l.summary}</td>
+                  <td className="p-3">{l.note}</td>
+                </tr>
+              ))}
+
+              {data.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={6}
+                    className="p-4 text-center text-gray-500"
+                  >
+                    Tidak ada data
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        ) : (
+          <Loading />
+        )}
       </div>
 
       <LapharsusCreateModal

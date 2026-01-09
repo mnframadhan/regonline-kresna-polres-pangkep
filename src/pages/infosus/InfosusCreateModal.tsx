@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Loading from "../../components/Loading";
+import { FormActions } from "../../components/FormActionModal";
 
 type Props = {
   open: boolean;
@@ -17,30 +19,37 @@ export default function InfosusCreateModal({
 }: Props) {
   if (!open) return null;
 
+  const [loading, setLoading] = useState<boolean>(false)
+
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
+    setLoading(true)
+    try {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
 
-    const payload = {
-      recipient: form.recipient.value,
-      summary: form.summary.value,
-      note: form.note.value,
-      month: form.month.value
-    };
+      const payload = {
+        recipient: form.recipient.value,
+        summary: form.summary.value,
+        note: form.note.value,
+        month: form.month.value
+      };
 
-    await fetch(`${import.meta.env.VITE_API_URL}/infosus`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      },
-      body: JSON.stringify(payload)
-    });
-
-    onSuccess();
-    onClose();
-  };
-
+      await fetch(`${import.meta.env.VITE_API_URL}/infosus`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify(payload)
+      });
+      onSuccess();
+      onClose();
+    } catch (err) {
+      alert("Terjadi Kesalahan");
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const romanMap = [
     "", "I", "II", "III", "IV", "V", "VI",
@@ -66,69 +75,60 @@ export default function InfosusCreateModal({
       <div className="bg-white w-full max-w-lg rounded shadow-lg p-6">
         <h2 className="text-lg font-bold mb-4">Tambah Infosus</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {!loading ? (
 
-          <label className="block flex items-center gap-2">
-            R / LIK /
+          <form onSubmit={handleSubmit} className="space-y-4">
+
+            <label className="block flex items-center gap-2">
+              R / LIK /
+              <input
+                value={latestNumber + 1}
+                className="w-12 bg-orange-200 text-center border rounded"
+                disabled
+              />
+              / &nbsp;
+              <input
+                name="month"
+                type="number"
+                min={1}
+                max={12}
+                onChange={handleChange}
+                className="w-12 text-center border rounded"
+                required
+              />
+              <p><strong>{ // @ts-ignore
+                romanMap[value]}</strong></p>
+              / &nbsp;
+              {year}
+            </label>
+
             <input
-              value={latestNumber + 1}
-              className="w-12 bg-orange-200 text-center border rounded"
-              disabled
-            />
-            / &nbsp;
-            <input
-              name="month"
-              type="number"
-              min={1}
-              max={12}
-              onChange={handleChange}
-              className="w-12 text-center border rounded"
+              name="recipient"
+              placeholder="Kepada"
               required
+              className="w-full border rounded px-3 py-2"
             />
-            <p><strong>{ // @ts-ignore
-              romanMap[value]}</strong></p>
-            / &nbsp;
-            {year}
-          </label>
 
+            <textarea
+              name="summary"
+              placeholder="Uraian Singkat"
+              required
+              className="w-full border rounded px-3 py-2"
+            />
 
-          <input
-            name="recipient"
-            placeholder="Kepada"
-            required
-            className="w-full border rounded px-3 py-2"
-          />
+            <textarea
+              name="note"
+              placeholder="Keterangan"
+              className="w-full border rounded px-3 py-2"
+            />
 
-          <textarea
-            name="summary"
-            placeholder="Uraian Singkat"
-            required
-            className="w-full border rounded px-3 py-2"
-          />
-
-          <textarea
-            name="note"
-            placeholder="Keterangan"
-            className="w-full border rounded px-3 py-2"
-          />
-
-          <div className="flex justify-end gap-2 pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 border rounded"
-            >
-              Batal
-            </button>
-
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded"
-            >
-              Simpan
-            </button>
-          </div>
-        </form>
+            <FormActions
+              onCancel={() => onClose()}
+            />
+          </form>
+        ) : (
+          <Loading />
+        )}
       </div>
     </div>
   );

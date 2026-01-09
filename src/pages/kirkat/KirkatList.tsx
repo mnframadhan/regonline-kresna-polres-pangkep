@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { getKirkatList } from "../../api/kirkat";
 import KirkatCreateModal from "./KirkatCreateModal";
-import { Back } from "../../components/Back";
 import { getLatestNumber } from "../../api/kirkat";
+import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
+import { PageHeader } from "../../components/PageHeader";
+import Loading from "../../components/Loading";
 
 export default function KirkatList() {
   const yearNow = new Date().getFullYear();
@@ -11,16 +13,22 @@ export default function KirkatList() {
   const [data, setData] = useState<any[]>([]);
   const [openCreate, setOpenCreate] = useState(false);
   const [latestNumber, setLatestNumber] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(true)
 
 
   const loadData = async () => {
-    const res = await getKirkatList(year);
-    setData(res.data);
+    try {
+      const res = await getKirkatList(year);
+      setData(res.data);
+    } catch (err) {
+      alert("Terjadi kesalahan")
+    } finally {
+      setLoading(false)
+    }
   };
 
   const loadLatest = async () => {
     const res = await getLatestNumber();
-
     !res.register_number ? 1 : setLatestNumber(res.register_number)
 
   };
@@ -32,75 +40,17 @@ export default function KirkatList() {
   }, [year]);
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between mb-6">
-        <h1 className="flex flex-col">
-          <span className="text-xl font-bold">Kirkat</span>
-          <Back />
-        </h1>
+    <div className="p-6 bg-yellow-200 min-h-screen">
 
-        <div className="flex gap-2">
-          <select
-            value={year}
-            onChange={(e) => setYear(Number(e.target.value))}
-            className="border rounded px-3 py-1"
-          >
-            {[yearNow, yearNow - 1, yearNow - 2].map((y) => (
-              <option key={y} value={y}>{y}</option>
-            ))}
-          </select>
+      <PageHeader title="REGISTER KIRKAT" />
 
-          <button
-            onClick={() => setOpenCreate(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            + Tambah
-          </button>
-        </div>
-      </div>
+      <div className="flex justify-between items-center mb-6">
 
-      <div className="bg-white rounded shadow overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="p-3">No</th>
-              <th className="p-3">Nomor Kirkat</th>
-              <th className="p-3">Tanggal Pembuatan</th>
-              <th className="p-3">Kepada</th>
-              <th className="p-3">Uraian Singkat</th>
-              <th className="p-3">Keterangan</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((k, i) => (
-              <tr key={k.id} className="border-t">
-                <td className="p-3">{i + 1}</td>
-                <td className="p-3 font-medium">
-                  {k.nomorKirkat}
-                </td>
-                <td className="p-3">
-                  {new Date(
-                    Number(k.createdAt) * 1000
-                  ).toLocaleDateString()}
-                </td>
-                <td className="p-3">{k.recipient}</td>
-                <td className="p-3">{k.summary}</td>
-                <td className="p-3">{k.note}</td>
-              </tr>
-            ))}
-
-            {data.length === 0 && (
-              <tr>
-                <td
-                  colSpan={6}
-                  className="p-4 text-center text-gray-500"
-                >
-                  Tidak ada data
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <YearSelectorWithAdd
+          year={year}
+          onYearChange={(y) => setYear(y)}
+          onAdd={() => setOpenCreate(true)}
+        />
       </div>
 
       <KirkatCreateModal
@@ -110,6 +60,55 @@ export default function KirkatList() {
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}
       />
+
+      <div className="bg-white rounded shadow overflow-x-auto">
+        {!loading ? (
+          <table className="w-full text-sm text-left">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="p-3 w-10">No</th>
+                <th className="p-3 w-60">Nomor Kirkat</th>
+                <th className="p-3 w-40">Tanggal Pembuatan</th>
+                <th className="p-3 w-32">Kepada</th>
+                <th className="p-3">Uraian Singkat</th>
+                <th className="p-3">Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((k, i) => (
+                <tr key={k.id} className="border-t">
+                  <td className="p-3">{i + 1}</td>
+                  <td className="p-3 font-medium">
+                    {k.nomorKirkat}
+                  </td>
+                  <td className="p-3">
+                    {new Date(
+                      Number(k.createdAt) * 1000
+                    ).toLocaleDateString()}
+                  </td>
+                  <td className="p-3">{k.recipient}</td>
+                  <td className="p-3">{k.summary}</td>
+                  <td className="p-3">{k.note}</td>
+                </tr>
+              ))}
+
+              {data.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={6}
+                    className="p-4 text-center text-gray-500"
+                  >
+                    Tidak ada data
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        ) : (
+          <Loading />
+        )}
+      </div>
+
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { api } from "../api/client";
 import { useAuthStore } from "../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -24,13 +25,10 @@ export default function Login() {
         email,
         password
       });
-
       // 1️⃣ simpan token
       setToken(res.data.token);
-
       // 2️⃣ validasi token + ambil user dari /auth/me
       await fetchMe();
-
       // 3️⃣ redirect
       navigate("/", { replace: true });
     } catch (err: any) {
@@ -43,14 +41,21 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen bg-yellow-200 flex flex-col py-24 pt-12 items-center justify-center bg-gray-100">
+      <div className="flex flex-col items-center">
+        <h1 className="font-extrabold text-4xl">REGISTER ONLINE</h1>
+        <span className="font-light text-2xl">Sat Intelkam Polres Pangkep</span>
+      </div>
+
+      <div className="my-12 flex gap-4 items-center">
+        <img className="max-w-40" src="/logo-kresna.png" />
+        <div className="h-32 w-1 bg-slate-300" />
+        <img className="max-w-52" src="/logo-sat-intelkam.png" />
+      </div>
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-xl shadow w-full max-w-md"
       >
-        <h1 className="text-2xl font-bold mb-6 text-center">
-          Login
-        </h1>
 
         {error && (
           <div className="mb-4 text-red-600 text-sm">
@@ -86,7 +91,7 @@ export default function Login() {
           disabled={loading}
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
         >
-          {loading ? "Memproses..." : "Login"}
+          {loading ? <Loading /> : "Login"}
         </button>
       </form>
     </div>

@@ -7,7 +7,7 @@ import { useAuthStore } from "./store/useAuthStore";
 useAuthStore.getState().checkAuth();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
+  <BrowserRouter >
     <App />
   </BrowserRouter>
 );

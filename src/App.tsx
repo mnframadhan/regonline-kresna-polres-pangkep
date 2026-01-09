@@ -26,7 +26,6 @@ export default function App() {
       {/* PROTECTED LAYOUT */}
       <Route path="/" element={<ProtectedRoute />}>
         <Route element={<Menu />} index />
-
         <Route path="reports" element={<ReportsList />} />
         <Route path="kirkat" element={<KirkatList />} />
         <Route path="lapharsus" element={<LapharsusList />} />
