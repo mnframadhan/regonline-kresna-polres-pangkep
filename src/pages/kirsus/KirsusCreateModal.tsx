@@ -70,7 +70,7 @@ export default function KirsusCreateModal({
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white w-full max-w-lg rounded p-6">
+      <div className="bg-slate-200 w-full max-w-lg rounded p-6">
         <h2 className="text-lg font-bold mb-4">Tambah Kirsus</h2>
 
         {!loading ? (
@@ -79,7 +79,7 @@ export default function KirsusCreateModal({
               R / KIRSUS -
               <input
                 value={latestNumber + 1}
-                className="w-12 bg-orange-200 text-center border rounded"
+                className="w-12 bg-yellow-200 text-center border rounded"
                 disabled
               />
               &nbsp;/ &nbsp;
@@ -89,7 +89,7 @@ export default function KirsusCreateModal({
                 max={12}
                 onChange={handleMonthChange}
                 value={month || ""}
-                className="w-12 text-center border rounded"
+                className="bg-white w-12 text-center border rounded"
                 required
               />
               &nbsp;
@@ -99,16 +99,13 @@ export default function KirsusCreateModal({
               &nbsp;
               / {year}
             </div>
-            <div>
-
-            </div>
 
             <input
               type="date"
               value={receivedAt}
               onChange={(e) => setReceivedAt(e.target.value)}
               required
-              className="w-full border rounded px-3 py-2 mt-1"
+              className="bg-white w-full border rounded px-3 py-2 mt-1"
             />
 
             <input
@@ -117,7 +114,7 @@ export default function KirsusCreateModal({
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
               required
-              className="w-full border rounded px-3 py-2"
+              className="bg-white w-full border rounded px-3 py-2"
             />
 
             <input
@@ -126,7 +123,7 @@ export default function KirsusCreateModal({
               value={cc}
               onChange={(e) => setCc(e.target.value)}
               required
-              className="w-full border rounded px-3 py-2"
+              className="bg-white w-full border rounded px-3 py-2"
             />
 
             <textarea
@@ -134,7 +131,7 @@ export default function KirsusCreateModal({
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
               required
-              className="w-full border rounded px-3 py-2"
+              className="bg-white w-full border rounded px-3 py-2"
             />
 
             <input
@@ -143,14 +140,14 @@ export default function KirsusCreateModal({
               value={opsType}
               onChange={(e) => setOpsType(e.target.value)}
               required
-              className="w-full border rounded px-3 py-2"
+              className="bg-white w-full border rounded px-3 py-2"
             />
 
             <textarea
               placeholder="Keterangan"
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="w-full border rounded px-3 py-2"
+              className="bg-white w-full border rounded px-3 py-2"
             />
 
             <FormActions

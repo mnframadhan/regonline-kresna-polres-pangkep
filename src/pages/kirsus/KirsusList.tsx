@@ -46,7 +46,7 @@ export default function KirsusList() {
   }, [year]);
 
   return (
-    <div className="uppercase p-6 bg-yellow-200 min-h-screen">
+    <div className="uppercase p-6 bg-gradient-to-b from-yellow-300 via-yellow-200 to-yellow-300 min-h-screen">
 
       <PageHeader title="REGISTER KIRSUS" />
 

@@ -42,7 +42,7 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white w-full max-w-xl rounded p-6">
+      <div className="bg-slate-200 w-full max-w-xl rounded p-6">
         <h2 className="text-lg font-bold mb-4">Tambah Laporan Informasi</h2>
 
         {!loading ? (
@@ -52,7 +52,7 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
               Nomor Register
               <input
                 value={latestNumber + 1}
-                className="w-12 bg-orange-200 text-center border rounded"
+                className="w-12 bg-yellow-200 font-bold border-black text-center border rounded"
                 disabled
               />
             </label>
@@ -64,7 +64,7 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
                 value={receivedAt}
                 onChange={(e) => setReceivedAt(e.target.value)}
                 required
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="bg-white w-full border rounded px-3 py-2 mt-1"
               />
             </label>
 
@@ -74,7 +74,7 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
                 name="reporter"
                 value={reporter}
                 onChange={(e) => setReporter(e.target.value)}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="bg-white w-full border rounded px-3 py-2 mt-1"
                 required
               >
                 <option>-- Pilih --</option>
@@ -135,7 +135,7 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
                 required
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="bg-white w-full border rounded px-3 py-2 mt-1"
               />
             </label>
 
@@ -145,7 +145,7 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 required
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="bg-white w-full border rounded px-3 py-2 mt-1"
               />
             </label>
 
@@ -154,7 +154,7 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="bg-white w-full border rounded px-3 py-2 mt-1"
               />
             </label>
 

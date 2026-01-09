@@ -2,7 +2,7 @@ import MenuCard from "../components/MenuCard";
 
 export default function Menu() {
   return (
-    <div className="uppercase flex flex-col items-center justify-center min-h-screen bg-yellow-200 p-8">
+    <div className="uppercase flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-yellow-300 via-yellow-200 to-yellow-300 p-8">
       <div className="flex flex-col items-center justify-center gap-2">
         <h1 className="text-4xl font-extrabold text-center">SAT INTELKAM POLRES PANGKEP</h1>
         <span className="text-2xl font-semibold text-center">Register Online Produk</span>

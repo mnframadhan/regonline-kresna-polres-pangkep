@@ -39,7 +39,7 @@ export default function ReportsList() {
   }, [year]);
 
   return (
-    <div className="uppercase p-6 bg-yellow-200 min-h-screen">
+    <div className="uppercase p-6 bg-gradient-to-b from-yellow-300 via-yellow-200 to-yellow-300 min-h-screen">
       <PageHeader title="REGISTER LAPORAN INFORMASI" />
       <div className="flex justify-between items-center mb-6">
         <YearSelectorWithAdd

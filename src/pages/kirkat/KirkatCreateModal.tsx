@@ -67,7 +67,7 @@ export default function KirkatCreateModal({
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white w-full max-w-lg rounded p-6">
+      <div className="bg-slate-200 w-full max-w-lg rounded p-6">
         <h2 className="text-lg font-bold mb-4">
           Tambah Kirkat
         </h2>
@@ -80,7 +80,7 @@ export default function KirkatCreateModal({
               R / KIRKAT /
               <input
                 value={latestNumber + 1}
-                className="w-12 bg-orange-200 text-center border rounded"
+                className="w-12 bg-yellow-200 border-black text-center border rounded"
                 disabled
               />
               / &nbsp;
@@ -90,7 +90,7 @@ export default function KirkatCreateModal({
                 min={1}
                 max={12}
                 onChange={handleChange}
-                className="w-12 text-center border rounded"
+                className="bg-white w-12 text-center border rounded"
                 required
               />
               <p><strong>{ // @ts-ignore
@@ -103,26 +103,26 @@ export default function KirkatCreateModal({
               type="date"
               name="received_at"
               required
-              className="w-full border rounded px-3 py-2 mt-1" />
+              className="bg-white w-full border rounded px-3 py-2 mt-1" />
 
             <input
               name="recipient"
               placeholder="Kepada"
               required
-              className="w-full border rounded px-3 py-2"
+              className="bg-white w-full border rounded px-3 py-2"
             />
 
             <textarea
               name="summary"
               placeholder="Uraian Singkat"
               required
-              className="w-full border rounded px-3 py-2"
+              className="bg-white w-full border rounded px-3 py-2"
             />
 
             <textarea
               name="note"
               placeholder="Keterangan"
-              className="w-full border rounded px-3 py-2"
+              className="bg-white w-full border rounded px-3 py-2"
             />
 
             <FormActions

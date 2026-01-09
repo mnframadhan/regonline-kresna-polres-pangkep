@@ -41,10 +41,11 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-yellow-200 flex flex-col py-24 pt-12 items-center justify-center bg-gray-100">
+    <div className="uppercase min-h-screen bg-gradient-to-b from-yellow-300 via-yellow-200 to-yellow-300 flex flex-col py-24 pt-12 items-center justify-center">
       <div className="flex flex-col items-center">
         <h1 className="font-extrabold text-4xl">REGISTER ONLINE</h1>
         <span className="font-light text-2xl">Sat Intelkam Polres Pangkep</span>
+        <span className="text-lg font-light italic text-center">"bekerja sama-sama, sama-sama bekerja"</span>
       </div>
 
       <div className="my-12 flex gap-4 items-center">
