@@ -23,7 +23,6 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   loading: false,
 
-  // ✅ INI YANG SEBELUMNYA SALAH / KURANG
   setToken: (token) => {
     localStorage.setItem("token", token);
     set({ token });

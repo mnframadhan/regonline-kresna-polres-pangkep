@@ -66,7 +66,9 @@ export default function KirsusList() {
                 <th className="p-3 w-72">Nomor Kirsus</th>
                 <th className="p-3 w-20">Tanggal</th>
                 <th className="p-3 w-20">Kepada</th>
-                <th className="p-3">Uraian</th>
+                <th className="p-3">Tembusan</th>
+                <th className="p-3">Perihal</th>
+                <th className="p-3">Jenis Ops</th>
                 <th className="p-3">Keterangan</th>
               </tr>
             </thead>
@@ -83,7 +85,9 @@ export default function KirsusList() {
                     ).toLocaleDateString()}
                   </td>
                   <td className="p-3">{k.recipient}</td>
+                  <td className="p-3">{k.cc}</td>
                   <td className="p-3">{k.summary}</td>
+                  <td className="p-3">{k.ops_type}</td>
                   <td className="p-3">{k.note}</td>
                 </tr>
               ))}
