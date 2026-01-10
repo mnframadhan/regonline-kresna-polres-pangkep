@@ -57,6 +57,7 @@ export default function ReportsList() {
                 <TableRow>
                   <TableHead className="px-4 py-2">No</TableHead>
                   <TableHead className="px-4 py-2">No. Register</TableHead>
+                  <TableHead className="px-4 py-2">Tanggal Pembuatan</TableHead>
                   <TableHead className="px-4 py-2">Tanggal Terima</TableHead>
                   <TableHead className="px-4 py-2">Pelapor</TableHead>
                   <TableHead className="px-4 py-2">Perihal</TableHead>
@@ -69,6 +70,11 @@ export default function ReportsList() {
                   <TableRow key={r.id} className="border-t">
                     <TableCell className="p-3">{i + 1}</TableCell>
                     <TableCell className="p-3 text-nowrap">{r.registerNumber}</TableCell>
+                    <TableCell className="p-3">
+                      {new Date(
+                        Number(r.createdAt) * 1000
+                      ).toLocaleDateString("id-ID", { dateStyle: "long" })}
+                    </TableCell>
                     <TableCell className="p-3">
                       {new Date(
                         Number(r.receivedAt) * 1000

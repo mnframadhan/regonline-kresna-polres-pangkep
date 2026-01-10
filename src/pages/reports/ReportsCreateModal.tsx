@@ -12,6 +12,7 @@ type Props = {
 
 export default function ReportsCreateModal({ open, latestNumber, onClose, onSuccess }: Props) {
   const [receivedAt, setReceivedAt] = useState("");
+  const [created_at, setCreated_at] = useState("");
   const [reporter, setReporter] = useState("");
   const [recipient, setRecipient] = useState("");
   const [subject, setSubject] = useState("");
@@ -24,9 +25,11 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
     setLoading(true)
     // Convert date picker to UNIX time string
     const receivedAtUnix = Math.floor(new Date(receivedAt).getTime() / 1000).toString();
+    const created_atUnix = Math.floor(new Date(created_at).getTime() / 1000).toString();
 
     await createReport({
       receivedAt: receivedAtUnix,
+      created_at: created_atUnix,
       reporter,
       recipient,
       subject,
@@ -56,9 +59,19 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
                 disabled
               />
             </label>
-            <label className="block">
-              Tanggal Penerimaan Laporan Informasi
 
+            <label className="block">
+              Tanggal Pembuatan
+              <input
+                type="date"
+                value={created_at}
+                onChange={(e) => setCreated_at(e.target.value)}
+                required
+                className="bg-white w-full border rounded px-3 py-2 mt-1"
+              />
+            </label>
+            <label className="block">
+              Tanggal Penerimaan
               <input
                 type="date"
                 value={receivedAt}
