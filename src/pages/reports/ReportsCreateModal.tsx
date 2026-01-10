@@ -95,16 +95,22 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
                   <option value="Urbin 1">Urbin 1</option>
                   <option value="Urbin 2">Urbin 2</option>
                   <option value="Urbin 3">Urbin 3</option>
+                  <option value="Urbin 4">Urbin 4</option>
+                  <option value="Urbin 5">Urbin 5</option>
                 </optgroup>
                 <optgroup label="Urmin">
                   <option value="Urmin 1">Urmin 1</option>
                   <option value="Urmin 2">Urmin 2</option>
                   <option value="Urmin 3">Urmin 3</option>
+                  <option value="Urmin 4">Urmin 4</option>
+                  <option value="Urmin 5">Urmin 5</option>
                 </optgroup>
                 <optgroup label="Uryan">
                   <option value="Uryan 1">Uryan 1</option>
                   <option value="Uryan 2">Uryan 2</option>
                   <option value="Uryan 3">Uryan 3</option>
+                  <option value="Uryan 4">Uryan 4</option>
+                  <option value="Uryan 5">Uryan 5</option>
                 </optgroup>
                 <optgroup label="UNIT 1">
                   <option value="1.1">1.1</option>
