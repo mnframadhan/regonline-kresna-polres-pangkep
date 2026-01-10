@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { FloatingButton } from "@/components/LogoutBtn";
+import Pagination from "@/components/Pagination";
 
 export default function KirkatList() {
   const yearNow = new Date().getFullYear();
@@ -26,9 +27,15 @@ export default function KirkatList() {
   const [loading, setLoading] = useState<boolean>(true)
 
 
+  // pagination
+  const [page, setPage] = useState(1);
+  const limit = 20;
+  const offset = (page - 1) * limit;
+
   const loadData = async () => {
+    setLoading(true)
     try {
-      const res = await getKirkatList(year);
+      const res = await getKirkatList(year, limit, offset);
       setData(res.data);
     } catch (err) {
       alert("Terjadi kesalahan")
@@ -47,6 +54,10 @@ export default function KirkatList() {
     loadData();
     loadLatest();
 
+  }, [year, page]);
+
+  useEffect(() => {
+    setPage(1);
   }, [year]);
 
   return (
@@ -73,6 +84,15 @@ export default function KirkatList() {
       />
 
       <div className="rounded shadow overflow-x-auto">
+
+        {/* PAGINATION */}
+        <Pagination
+          page={page}
+          limit={limit}
+          dataLength={data.length}
+          onPrev={() => setPage((p) => p - 1)}
+          onNext={() => setPage((p) => p + 1)}
+        />
         {!loading ? (
 
           <ScrollArea className="bg-white w-full rounded-md border mt-2">

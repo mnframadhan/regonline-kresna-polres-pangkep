@@ -1,9 +1,18 @@
 import { api } from "./client";
 
-export const getKirkatList = async (year?: number) => {
+export const getKirkatList = async (
+  year?: number,
+  limit: number = 20,
+  offset: number = 0
+) => {
   const res = await api.get("/kirkat", {
-    params: year ? { year } : undefined
+    params: {
+      year,
+      limit,
+      offset
+    }
   });
+
   return res.data;
 };
 

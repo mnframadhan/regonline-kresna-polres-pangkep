@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { FloatingButton } from "@/components/LogoutBtn";
+import Pagination from "@/components/Pagination";
 
 type Infosus = {
   id: string;
@@ -32,11 +33,17 @@ export default function InfosusList() {
   const [latestNumber, setLatestNumber] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true)
 
+  // pagination
+  const [page, setPage] = useState(1);
+  const limit = 20;
+  const offset = (page - 1) * limit;
+
   const [openCreate, setOpenCreate] = useState(false);
 
   const loadData = async () => {
+    setLoading(true)
     try {
-      const res = await getInfosusList(year);
+      const res = await getInfosusList(year, limit, offset);
       setData(res.data);
     } catch (err) {
       alert("Terjadi kesalahan")
@@ -53,6 +60,12 @@ export default function InfosusList() {
   useEffect(() => {
     loadLatest();
     loadData();
+  }, [year, page]);
+
+
+  // reset page saat tahun berubah
+  useEffect(() => {
+    setPage(1);
   }, [year]);
 
   return (
@@ -78,8 +91,16 @@ export default function InfosusList() {
         onSuccess={loadData}
       />
 
-
       <div className="overflow-x-auto rounded shadow">
+
+        {/* PAGINATION */}
+        <Pagination
+          page={page}
+          limit={limit}
+          dataLength={data.length}
+          onPrev={() => setPage((p) => p - 1)}
+          onNext={() => setPage((p) => p + 1)}
+        />
         {!loading ? (
 
           <ScrollArea className="bg-white w-full rounded-md border mt-2">

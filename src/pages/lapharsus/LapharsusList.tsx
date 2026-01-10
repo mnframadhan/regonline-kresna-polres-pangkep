@@ -8,6 +8,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { FloatingButton } from "@/components/LogoutBtn";
 
+import Pagination from "@/components/Pagination";
+
 export default function LapharsusList() {
   const yearNow = new Date().getFullYear();
 
@@ -17,14 +19,22 @@ export default function LapharsusList() {
   const [latestNumber, setLatestNumber] = useState(0);
   const [loading, setLoading] = useState<boolean>(true)
 
+
+
+  // pagination
+  const [page, setPage] = useState(1);
+  const limit = 20;
+  const offset = (page - 1) * limit;
+
   const loadData = async () => {
+    setLoading(true);
     try {
-      const res = await getLapharsusList(year);
+      const res = await getLapharsusList(year, limit, offset);
       setData(res.data);
-    } catch (err) {
-      alert("Terjadi kesalahan")
+    } catch {
+      alert("Terjadi kesalahan");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -33,9 +43,16 @@ export default function LapharsusList() {
     !res.register_number ? 1 : setLatestNumber(res.register_number)
   }
 
+
   useEffect(() => {
     loadData();
     loadLatest();
+  }, [year, page]);
+
+
+  // reset page saat tahun berubah
+  useEffect(() => {
+    setPage(1);
   }, [year]);
 
   return (
@@ -54,6 +71,14 @@ export default function LapharsusList() {
       </div>
       <div className="rounded shadow overflow-x-auto">
 
+        {/* PAGINATION */}
+        <Pagination
+          page={page}
+          limit={limit}
+          dataLength={data.length}
+          onPrev={() => setPage((p) => p - 1)}
+          onNext={() => setPage((p) => p + 1)}
+        />
         {!loading ? (
 
           <ScrollArea className="bg-white w-full rounded-md border mt-2">

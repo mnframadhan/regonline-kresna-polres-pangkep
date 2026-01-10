@@ -1,9 +1,19 @@
 import { api } from "./client";
 
-export const getLapharsusList = async (year?: number) => {
+
+export const getLapharsusList = async (
+  year?: number,
+  limit: number = 20,
+  offset: number = 0
+) => {
   const res = await api.get("/lapharsus", {
-    params: year ? { year } : undefined
+    params: {
+      year,
+      limit,
+      offset
+    }
   });
+
   return res.data;
 };
 

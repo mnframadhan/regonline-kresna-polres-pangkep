@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { FloatingButton } from "@/components/LogoutBtn";
+import Pagination from "@/components/Pagination";
 
 export default function KirsusList() {
   const yearNow = new Date().getFullYear();
@@ -25,9 +26,14 @@ export default function KirsusList() {
 
   const [loading, setLoading] = useState<boolean>(true);
 
+  // pagination
+  const [page, setPage] = useState(1);
+  const limit = 20;
+  const offset = (page - 1) * limit;
+
   const loadData = async () => {
     try {
-      const res = await getKirsusList(year);
+      const res = await getKirsusList(year, limit, offset);
       setData(res.data);
     } catch (err) {
       alert("Terjadi kesalahan")
@@ -44,6 +50,12 @@ export default function KirsusList() {
   useEffect(() => {
     loadData();
     loadLatest();
+  }, [year, page]);
+
+
+  // reset page saat tahun berubah
+  useEffect(() => {
+    setPage(1);
   }, [year]);
 
   return (
@@ -69,6 +81,15 @@ export default function KirsusList() {
         onSuccess={loadData}
       />
       <div className="rounded shadow overflow-x-auto">
+
+        {/* PAGINATION */}
+        <Pagination
+          page={page}
+          limit={limit}
+          dataLength={data.length}
+          onPrev={() => setPage((p) => p - 1)}
+          onNext={() => setPage((p) => p + 1)}
+        />
         {!loading ? (
 
           <ScrollArea className="bg-white w-full rounded-md border mt-2">

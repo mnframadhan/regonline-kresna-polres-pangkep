@@ -1,9 +1,18 @@
 import { api } from "./client";
 
-export const getKirsusList = async (year?: number) => {
+export const getKirsusList = async (
+  year?: number,
+  limit: number = 20,
+  offset: number = 0
+) => {
   const res = await api.get("/kirsus", {
-    params: year ? { year } : undefined
+    params: {
+      year,
+      limit,
+      offset
+    }
   });
+
   return res.data;
 };
 
