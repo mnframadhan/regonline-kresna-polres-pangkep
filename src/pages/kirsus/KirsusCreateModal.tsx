@@ -100,6 +100,8 @@ export default function KirsusCreateModal({
               / {year}
             </div>
 
+            <br />
+            Tanggal Pembuatan
             <input
               type="date"
               value={receivedAt}
@@ -108,6 +110,7 @@ export default function KirsusCreateModal({
               className="bg-white w-full border rounded px-3 py-2 mt-1"
             />
 
+            Kepada
             <input
               type="text"
               placeholder="Kepada"
@@ -117,6 +120,7 @@ export default function KirsusCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            Tembusan
             <input
               type="text"
               placeholder="Tembusan"
@@ -126,6 +130,7 @@ export default function KirsusCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            Perihal
             <textarea
               placeholder="Perihal"
               value={summary}
@@ -134,6 +139,7 @@ export default function KirsusCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            Jenis Ops
             <input
               type="text"
               placeholder="Jenis Ops"
@@ -143,6 +149,7 @@ export default function KirsusCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            Keterangan
             <textarea
               placeholder="Keterangan"
               value={note}

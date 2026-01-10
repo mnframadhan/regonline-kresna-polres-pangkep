@@ -101,11 +101,17 @@ export default function LapharsusCreateModal({
             /
             {year} &nbsp;
             SAT - IK
+
+            <br />
+            <br />
+            Tanggal Pembuatan
             <input
               type="date"
               name="received_at"
               required
               className="bg-white w-full border rounded px-3 py-2 mt-1" />
+
+            Wilayah
             <input
               name="region"
               placeholder="Wilayah"
@@ -113,6 +119,7 @@ export default function LapharsusCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            Uraian Singkat
             <textarea
               name="summary"
               placeholder="Uraian Singkat"
@@ -120,6 +127,7 @@ export default function LapharsusCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            Keterangan
             <input
               name="note"
               placeholder="Keterangan"

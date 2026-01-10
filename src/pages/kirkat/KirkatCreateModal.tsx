@@ -99,12 +99,14 @@ export default function KirkatCreateModal({
               {year}
             </label>
 
+            Tanggal Pembuatan
             <input
               type="date"
               name="received_at"
               required
               className="bg-white w-full border rounded px-3 py-2 mt-1" />
 
+            Kepada
             <input
               name="recipient"
               placeholder="Kepada"
@@ -112,6 +114,7 @@ export default function KirkatCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            Uraian Singkat
             <textarea
               name="summary"
               placeholder="Uraian Singkat"
@@ -119,6 +122,7 @@ export default function KirkatCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            Keterangan
             <textarea
               name="note"
               placeholder="Keterangan"

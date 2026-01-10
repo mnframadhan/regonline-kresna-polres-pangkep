@@ -104,12 +104,14 @@ export default function InfosusCreateModal({
               {year}
             </label>
 
+            Tanggal pembuatan
             <input
               type="date"
               name="received_at"
               required
               className="bg-white w-full border rounded px-3 py-2 mt-1" />
 
+            kepada
             <input
               name="recipient"
               placeholder="Kepada"
@@ -117,6 +119,7 @@ export default function InfosusCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            uraian singkat
             <textarea
               name="summary"
               placeholder="Uraian Singkat"
@@ -124,6 +127,7 @@ export default function InfosusCreateModal({
               className="bg-white w-full border rounded px-3 py-2"
             />
 
+            Keterangan
             <textarea
               name="note"
               placeholder="Keterangan"
