@@ -13,6 +13,7 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { FloatingButton } from "@/components/LogoutBtn";
 
 export default function KirsusList() {
   const yearNow = new Date().getFullYear();
@@ -48,6 +49,7 @@ export default function KirsusList() {
   return (
     <div className="uppercase p-6 bg-gradient-to-b from-yellow-300 via-yellow-200 to-yellow-300 min-h-screen">
 
+      <FloatingButton />
       <PageHeader title="REGISTER KIRSUS" />
 
       <div className="flex justify-between items-center mb-6">

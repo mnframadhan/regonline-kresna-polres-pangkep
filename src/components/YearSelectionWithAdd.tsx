@@ -8,9 +8,7 @@ type Props = {
 
 export function YearSelectorWithAdd({ year, onYearChange, onAdd }: Props) {
   const currentYear = new Date().getFullYear();
-
   const years = [currentYear, currentYear - 1, currentYear - 2];
-
   return (
     <div className="w-full flex justify-between font-bold case-upper ">
       <div className="flex gap-2">
@@ -21,17 +19,20 @@ export function YearSelectorWithAdd({ year, onYearChange, onAdd }: Props) {
         >
           + TAMBAH </button>
       </div>
-      <select
-        className="bg-white border rounded px-4 py-2"
-        value={year}
-        onChange={(e) => onYearChange(Number(e.target.value))}
-      >
-        {years.map((y) => (
-          <option key={y} value={y}>
-            {y}
-          </option>
-        ))}
-      </select>
+      <div className="flex gap-2">
+
+        <select
+          className="bg-white border rounded px-4 py-2"
+          value={year}
+          onChange={(e) => onYearChange(Number(e.target.value))}
+        >
+          {years.map((y) => (
+            <option key={y} value={y}>
+              {y}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 }

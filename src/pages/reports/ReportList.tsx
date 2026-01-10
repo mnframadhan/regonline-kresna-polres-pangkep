@@ -6,6 +6,7 @@ import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
 import Loading from "../../components/Loading";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { FloatingButton } from "@/components/LogoutBtn";
 
 export default function ReportsList() {
   const yearNow = new Date().getFullYear();
@@ -39,7 +40,9 @@ export default function ReportsList() {
   }, [year]);
 
   return (
+
     <div className="uppercase p-6 bg-gradient-to-b from-yellow-300 via-yellow-200 to-yellow-300 min-h-screen">
+      <FloatingButton />
       <PageHeader title="REGISTER LAPORAN INFORMASI" />
       <div className="flex justify-between items-center mb-6">
         <YearSelectorWithAdd
