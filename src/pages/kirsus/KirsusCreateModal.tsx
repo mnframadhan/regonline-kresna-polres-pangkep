@@ -27,8 +27,8 @@ export default function KirsusCreateModal({
   const [recipient, setRecipient] = useState("");
   const [cc, setCc] = useState("");
   const [summary, setSummary] = useState("");
-  const [opsType, setOpsType] = useState("");
-  const [note, setNote] = useState("");
+  const [opsType, setOpsType] = useState("-");
+  const [note, setNote] = useState("-");
   const [month, setMonth] = useState<number>(0);
   const [receivedAt, setReceivedAt] = useState("");
 
