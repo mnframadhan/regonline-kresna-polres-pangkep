@@ -32,7 +32,7 @@ export default function InfosusCreateModal({
         received_at: Math.floor(new Date(form.received_at.value).getTime() / 1000).toString(),
         recipient: form.recipient.value,
         summary: form.summary.value,
-        note: form.note.value,
+        note: form.note.value == "" ? "-" : form.note.value,
         month: form.month.value
       };
 
