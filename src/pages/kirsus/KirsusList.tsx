@@ -142,7 +142,6 @@ export default function KirsusList() {
 
       <KirsusCreateModal
         open={openCreate}
-        latestNumber={latestNumber}
         year={year}
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}
