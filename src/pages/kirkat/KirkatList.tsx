@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getKirkatList } from "../../api/kirkat";
 import KirkatCreateModal from "./KirkatCreateModal";
-import { getLatestNumber } from "../../api/kirkat";
 import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
 import { PageHeader } from "../../components/PageHeader";
 import Loading from "../../components/Loading";
@@ -23,7 +22,6 @@ export default function KirkatList() {
   const [year, setYear] = useState(yearNow);
   const [data, setData] = useState<any[]>([]);
   const [openCreate, setOpenCreate] = useState(false);
-  const [latestNumber, setLatestNumber] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(true)
 
 
@@ -44,15 +42,9 @@ export default function KirkatList() {
     }
   };
 
-  const loadLatest = async () => {
-    const res = await getLatestNumber();
-    !res.register_number ? 1 : setLatestNumber(res.register_number)
-
-  };
 
   useEffect(() => {
     loadData();
-    loadLatest();
 
   }, [year, page]);
 
@@ -77,7 +69,6 @@ export default function KirkatList() {
 
       <KirkatCreateModal
         open={openCreate}
-        latestNumber={latestNumber}
         year={year}
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}

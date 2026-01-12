@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getInfosusList, getLatestNumber } from "../../api/infosus";
+import { getInfosusList } from "../../api/infosus";
 import InfosusCreateModal from "./InfosusCreateModal";
 import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
 import Loading from "../../components/Loading";
@@ -30,7 +30,6 @@ export default function InfosusList() {
 
   const [year, setYear] = useState(new Date().getFullYear());
   const [data, setData] = useState<Infosus[]>([]);
-  const [latestNumber, setLatestNumber] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true)
 
   // pagination
@@ -52,13 +51,8 @@ export default function InfosusList() {
     }
   };
 
-  const loadLatest = async () => {
-    const res = await getLatestNumber();
-    !res.register_number ? 1 : setLatestNumber(res.register_number)
-  }
 
   useEffect(() => {
-    loadLatest();
     loadData();
   }, [year, page]);
 
@@ -85,7 +79,6 @@ export default function InfosusList() {
 
       <InfosusCreateModal
         open={openCreate}
-        latestNumber={latestNumber}
         year={year}
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}

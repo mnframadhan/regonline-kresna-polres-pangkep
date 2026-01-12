@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getLapharsusList, getLatestNumber } from "../../api/lapharsus";
+import { getLapharsusList } from "../../api/lapharsus";
 import LapharsusCreateModal from "./LapharsusCreateModal";
 import { PageHeader } from "../../components/PageHeader";
 import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
@@ -16,10 +16,7 @@ export default function LapharsusList() {
   const [year, setYear] = useState(yearNow);
   const [data, setData] = useState<any[]>([]);
   const [openCreate, setOpenCreate] = useState(false);
-  const [latestNumber, setLatestNumber] = useState(0);
   const [loading, setLoading] = useState<boolean>(true)
-
-
 
   // pagination
   const [page, setPage] = useState(1);
@@ -38,15 +35,8 @@ export default function LapharsusList() {
     }
   };
 
-  const loadLatest = async () => {
-    const res = await getLatestNumber();
-    !res.register_number ? 1 : setLatestNumber(res.register_number)
-  }
-
-
   useEffect(() => {
     loadData();
-    loadLatest();
   }, [year, page]);
 
 
@@ -133,7 +123,6 @@ export default function LapharsusList() {
 
       <LapharsusCreateModal
         open={openCreate}
-        latestNumber={latestNumber}
         year={year}
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}

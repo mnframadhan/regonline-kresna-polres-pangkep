@@ -1,16 +1,16 @@
-import { createReport } from "../../api/reports";
-import { useState } from "react";
+import { createReport, reportLatestRecord } from "../../api/reports";
+import { useEffect, useState } from "react";
 import { FormActions } from "../../components/FormActionModal";
 import Loading from "../../components/Loading";
 
 type Props = {
-  latestNumber: number;
   open: boolean;
   onClose: () => void;
   onSuccess: () => void;
 };
 
-export default function ReportsCreateModal({ open, latestNumber, onClose, onSuccess }: Props) {
+export default function ReportsCreateModal({ open, onClose, onSuccess }: Props) {
+
   const [receivedAt, setReceivedAt] = useState("");
   const [created_at, setCreated_at] = useState("");
   const [reporter, setReporter] = useState("");
@@ -18,6 +18,17 @@ export default function ReportsCreateModal({ open, latestNumber, onClose, onSucc
   const [subject, setSubject] = useState("");
   const [note, setNote] = useState("");
   const [loading, setLoading] = useState<boolean>(false)
+
+  const [latestNumber, setLatestNumber] = useState<number>(0);
+
+  const loadLatest = async () => {
+    const res = await reportLatestRecord();
+    !res.register_number ? 1 : setLatestNumber(res.register_number)
+  };
+
+  useEffect(() => {
+    loadLatest();
+  }, [])
 
   if (!open) return null;
 

@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 import { FormActions } from "../../components/FormActionModal";
+import { getLatestNumber } from "@/api/infosus";
 
 type Props = {
   open: boolean;
-  latestNumber: number;
   year: number;
   onClose: () => void;
   onSuccess: () => void;
@@ -12,7 +12,6 @@ type Props = {
 
 export default function InfosusCreateModal({
   open,
-  latestNumber,
   year,
   onClose,
   onSuccess
@@ -20,6 +19,17 @@ export default function InfosusCreateModal({
   if (!open) return null;
 
   const [loading, setLoading] = useState<boolean>(false)
+
+  const [latestNumber, setLatestNumber] = useState<number>(0);
+
+  const loadLatest = async () => {
+    const res = await getLatestNumber();
+    !res.register_number ? 1 : setLatestNumber(res.register_number)
+  }
+
+  useEffect(() => {
+    loadLatest();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     setLoading(true)

@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { createKirsus } from "../../api/kirsus";
+import { useEffect, useState } from "react";
+import { createKirsus, getLatestNumber } from "../../api/kirsus";
 import Loading from "../../components/Loading";
 import { FormActions } from "../../components/FormActionModal";
 
 type Props = {
   open: boolean;
-  latestNumber: number;
   year: number;
   onClose: () => void;
   onSuccess: () => void;
@@ -18,7 +17,6 @@ const romanMap = [
 
 export default function KirsusCreateModal({
   open,
-  latestNumber,
   year,
   onClose,
   onSuccess
@@ -31,6 +29,17 @@ export default function KirsusCreateModal({
   const [note, setNote] = useState("-");
   const [month, setMonth] = useState<number>(0);
   const [receivedAt, setReceivedAt] = useState("");
+  const [latestNumber, setLatestNumber] = useState<number>(0)
+
+  const loadLatest = async () => {
+    const res = await getLatestNumber();
+    !res.register_number ? 1 : setLatestNumber(res.register_number)
+  }
+
+  useEffect(() => {
+    loadLatest();
+  })
+
 
   if (!open) return null;
 

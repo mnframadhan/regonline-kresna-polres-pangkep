@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getReportsList, reportLatestRecord } from "../../api/reports";
+import { getReportsList } from "../../api/reports";
 import ReportsCreateModal from "./ReportsCreateModal";
 import { PageHeader } from "../../components/PageHeader";
 import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
@@ -21,7 +21,6 @@ export default function ReportsList() {
 
   const [year, setYear] = useState(yearNow);
   const [data, setData] = useState<any[]>([]);
-  const [latestNumber, setLatestNumber] = useState<number>(0);
   const [openCreate, setOpenCreate] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -42,15 +41,9 @@ export default function ReportsList() {
     }
   };
 
-  const loadLatest = async () => {
-    const res = await reportLatestRecord();
-    !res.register_number ? 1 : setLatestNumber(res.register_number)
-  };
-
   // reload data saat year / page berubah
   useEffect(() => {
     loadData();
-    loadLatest();
   }, [year, page]);
 
   // reset page saat tahun berubah
@@ -151,7 +144,6 @@ export default function ReportsList() {
 
         <ReportsCreateModal
           open={openCreate}
-          latestNumber={latestNumber}
           onClose={() => setOpenCreate(false)}
           onSuccess={loadData}
         />

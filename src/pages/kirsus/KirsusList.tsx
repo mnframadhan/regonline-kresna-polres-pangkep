@@ -22,7 +22,6 @@ export default function KirsusList() {
   const [year, setYear] = useState(yearNow);
   const [data, setData] = useState<any[]>([]);
   const [openCreate, setOpenCreate] = useState(false);
-  const [latestNumber, setLatestNumber] = useState(0);
 
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -42,14 +41,9 @@ export default function KirsusList() {
     }
   };
 
-  const loadLatest = async () => {
-    const res = await getLatestNumber();
-    !res.register_number ? 1 : setLatestNumber(res.register_number)
-  }
 
   useEffect(() => {
     loadData();
-    loadLatest();
   }, [year, page]);
 
 
@@ -75,7 +69,6 @@ export default function KirsusList() {
 
       <KirsusCreateModal
         open={openCreate}
-        latestNumber={latestNumber}
         year={year}
         onClose={() => setOpenCreate(false)}
         onSuccess={loadData}

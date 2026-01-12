@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
+import Register from "./Register";
+
 import Menu from "./pages/Menu";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -22,6 +24,12 @@ export default function App() {
         path="/login"
         element={user ? <Navigate to="/" replace /> : <Login />}
       />
+
+      <Route
+        path="/register"
+        element={user ? <Navigate to="/" replace /> : <Register />}
+      />
+
 
       {/* PROTECTED LAYOUT */}
       <Route path="/" element={<ProtectedRoute />}>
