@@ -38,7 +38,7 @@ export default function KirsusCreateModal({
 
   useEffect(() => {
     loadLatest();
-  })
+  }, [])
 
 
   if (!open) return null;

@@ -41,11 +41,9 @@ export default function KirsusList() {
     }
   };
 
-
   useEffect(() => {
     loadData();
   }, [year, page]);
-
 
   // reset page saat tahun berubah
   useEffect(() => {

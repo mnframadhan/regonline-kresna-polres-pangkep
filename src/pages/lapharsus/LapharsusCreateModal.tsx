@@ -26,7 +26,6 @@ export default function LapharsusCreateModal({
     !res.register_number ? 1 : setLatestNumber(res.register_number)
   }
 
-
   useEffect(() => {
     loadLatest();
   }, []);
