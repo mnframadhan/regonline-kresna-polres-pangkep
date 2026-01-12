@@ -33,24 +33,26 @@ export default function ReportsCreateModal({ open, onClose, onSuccess }: Props) 
   if (!open) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
-    setLoading(true)
-    // Convert date picker to UNIX time string
-    const receivedAtUnix = Math.floor(new Date(receivedAt).getTime() / 1000).toString();
-    const created_atUnix = Math.floor(new Date(created_at).getTime() / 1000).toString();
-
-    await createReport({
-      receivedAt: receivedAtUnix,
-      created_at: created_atUnix,
-      reporter,
-      recipient,
-      subject,
-      note
-    });
-
-    onSuccess();
-    onClose();
-    try { } catch (err) { alert("terjadi Kesalahan") } finally { setLoading(false) }
     e.preventDefault();
+    try {
+      // Convert date picker to UNIX time string
+      const receivedAtUnix = Math.floor(new Date(receivedAt).getTime() / 1000).toString();
+      const created_atUnix = Math.floor(new Date(created_at).getTime() / 1000).toString();
+
+      setLoading(true)
+
+      await createReport({
+        receivedAt: receivedAtUnix,
+        created_at: created_atUnix,
+        reporter,
+        recipient,
+        subject,
+        note
+      });
+
+      onSuccess();
+      onClose();
+    } catch (err) { alert("terjadi Kesalahan") } finally { setLoading(false) }
 
   };
 
