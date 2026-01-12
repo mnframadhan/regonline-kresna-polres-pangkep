@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getKirsusList, getLatestNumber } from "../../api/kirsus";
+import { getKirsusList } from "../../api/kirsus";
 import KirsusCreateModal from "./KirsusCreateModal";
 import { YearSelectorWithAdd } from "../../components/YearSelectionWithAdd";
 import { PageHeader } from "../../components/PageHeader";
